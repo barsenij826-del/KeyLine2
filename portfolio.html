@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Портфолио объектов KeyLine — Ремонт квартир под ключ в Ташкенте</title>
+  <meta name="description" content="Расширенное портфолио выполненных ремонтов KeyLine в Ташкенте скоро обновится. Получите актуальные PDF-каталоги с объектами и ценами в Telegram.">
+  <!-- Когда выложите полный список проектов на этой странице, замените noindex на index -->
+  <meta name="robots" content="noindex, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-dark: #121211;
+      --bg-charcoal: #1c1b19;
+      --bg-light: #f6f4ef;
+      --bg-stone: #ece8e0;
+      --gold: #d4a13e;
+      --gold-hover: #e5b95c;
+      --text-light: #f5f2eb;
+      --text-muted-light: #b7b0a3;
+      --text-dark: #191816;
+      --text-muted-dark: #5c574f;
+      --border-dark: rgba(255, 255, 255, 0.11);
+      --border-light: rgba(25, 24, 22, 0.12);
+      --tr: 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Manrope', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-light);
+      background: var(--bg-dark);
+      overflow-x: clip;
+      -webkit-font-smoothing: antialiased;
+    }
+    body.modal-open { overflow: hidden; }
+    main { flex: 1; display: flex; flex-direction: column; }
+    a { color: inherit; text-decoration: none; }
+    button, input { font-family: inherit; }
+    .btn, button, a { touch-action: manipulation; }
+    [hidden] { display: none !important; }
+    .container { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+    .text-serif-italic { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 600; color: var(--gold); font-size: 1.12em; }
+    .link-gold { color: var(--gold); font-weight: 600; transition: color var(--tr); }
+    .link-gold:hover { color: var(--gold-hover); text-decoration: underline; }
+
+    /* Плавное появление элементов */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal-ready .reveal-item {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+                    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+        will-change: opacity, transform;
+      }
+      .reveal-ready .reveal-item.is-visible { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Кнопки и поля */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 24px; border-radius: 8px; font-weight: 700; font-size: 15px; line-height: 1.2; cursor: pointer; border: 1px solid transparent; transition: all var(--tr); text-align: center; }
+    .btn--sm { padding: 10px 18px; font-size: 14px; }
+    .btn--lg { padding: 15px 26px; font-size: 15.5px; }
+    .btn--block { width: 100%; }
+    .btn--gold { background: var(--gold); color: #121211; box-shadow: 0 10px 26px rgba(212, 161, 62, 0.25); }
+    .btn--gold:hover { background: var(--gold-hover); transform: translateY(-2px); box-shadow: 0 14px 32px rgba(212, 161, 62, 0.36); }
+    .btn--outline-gold { background: transparent; color: var(--gold); border-color: rgba(212, 161, 62, 0.4); }
+    .btn--outline-gold:hover { background: rgba(212, 161, 62, 0.14); border-color: var(--gold); }
+    .btn--outline-light { background: rgba(255, 255, 255, 0.05); color: var(--text-light); border-color: rgba(255, 255, 255, 0.26); }
+    .btn--outline-light:hover { background: rgba(255, 255, 255, 0.12); border-color: var(--text-light); }
+    .btn--tg-icon { width: 40px; height: 40px; padding: 0; border-radius: 50%; background: rgba(212, 161, 62, 0.14); border-color: rgba(212, 161, 62, 0.35); color: var(--gold); }
+    .btn--tg-icon:hover { background: var(--gold); color: #121211; }
+
+    .input { width: 100%; padding: 14px 16px; border-radius: 8px; font-size: 15px; outline: none; transition: border-color var(--tr), box-shadow var(--tr); }
+    .input--dark { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.18); color: var(--text-light); }
+    .input--dark::placeholder { color: var(--text-muted-light); }
+    .input--dark:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212, 161, 62, 0.2); }
+    .form-row { margin-bottom: 12px; }
+    .form-status { margin-top: 10px; font-size: 13.5px; line-height: 1.45; min-height: 18px; }
+    .form-status.is-success { color: #6ce0a8; }
+    .form-status.is-error { color: #ff8080; }
+    .form-policy { margin: 10px 0 0; font-size: 11.5px; color: var(--text-muted-light); line-height: 1.4; text-align: center; }
+    .form-policy a { color: var(--gold); text-decoration: underline; }
+
+    /* Шапка */
+    .header { position: sticky; top: 0; z-index: 90; background: rgba(18, 18, 17, 0.94); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border-dark); }
+    .header__inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 66px; }
+    .logo { display: inline-flex; align-items: center; flex-shrink: 0; }
+    .nav { display: flex; align-items: center; gap: 16px; }
+    .nav__link { font-size: 13.5px; font-weight: 600; color: var(--text-muted-light); transition: color var(--tr); white-space: nowrap; }
+    .nav__link:hover, .nav__link.is-active { color: var(--gold); }
+    .header__actions { display: flex; align-items: center; gap: 12px; }
+    .header__phones { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.25; }
+    .header__phone { font-size: 14px; font-weight: 700; color: var(--text-light); white-space: nowrap; }
+    .header__phone:hover { color: var(--gold); }
+    .header__phone--sub { font-size: 12.5px; font-weight: 500; color: var(--text-muted-light); }
+    .burger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 40px; height: 40px; padding: 8px; background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-dark); border-radius: 8px; cursor: pointer; }
+    .burger span { display: block; height: 2px; width: 100%; background: var(--text-light); border-radius: 2px; }
+
+    .mobile-menu { position: fixed; inset: 0; z-index: 150; background: rgba(12, 12, 11, 0.97); backdrop-filter: blur(12px); opacity: 0; visibility: hidden; transition: all var(--tr); }
+    .mobile-menu.is-open { opacity: 1; visibility: visible; }
+    .mobile-menu__inner { height: 100%; overflow-y: auto; padding: 24px 20px 40px; display: flex; flex-direction: column; }
+    .mobile-menu__head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 18px; border-bottom: 1px solid var(--border-dark); }
+    .mobile-menu__title { font-weight: 700; font-size: 18px; color: var(--gold); }
+    .mobile-menu__nav { display: flex; flex-direction: column; gap: 6px; margin: 22px 0; }
+    .mobile-menu__link { padding: 12px 0; font-size: 18px; font-weight: 600; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+    .mobile-menu__link.is-active { color: var(--gold); }
+    .mobile-menu__contacts { margin-top: auto; padding-top: 20px; }
+    .mobile-menu__label { margin: 0 0 8px; font-size: 13px; color: var(--text-muted-light); }
+    .mobile-menu__phone { display: block; font-size: 20px; font-weight: 700; color: var(--gold); margin-bottom: 6px; }
+    .mobile-menu__cta { display: grid; gap: 10px; margin-top: 16px; }
+
+    /* Секция Coming Soon */
+    .soon-section {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 64px 0 80px;
+      background:
+        radial-gradient(circle at 82% 18%, rgba(212, 161, 62, 0.14), transparent 46%),
+        radial-gradient(circle at 12% 84%, rgba(212, 161, 62, 0.08), transparent 42%),
+        var(--bg-dark);
+    }
+    .soon-grid { display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 44px; align-items: center; }
+    .soon-grid > * { min-width: 0; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; padding: 7px 14px; border-radius: 999px; background: rgba(212, 161, 62, 0.12); border: 1px solid rgba(212, 161, 62, 0.38); font-size: 12.5px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+    .eyebrow__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 12px var(--gold); animation: soonBlink 2s infinite; }
+    @keyframes soonBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+    .soon-title { margin: 0 0 16px; font-size: clamp(30px, 3.8vw, 48px); line-height: 1.12; font-weight: 800; letter-spacing: -0.02em; color: var(--text-light); }
+    .soon-desc { margin: 0 0 26px; font-size: 16.5px; color: #d6d0c4; max-width: 580px; }
+    .soon-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+    .soon-back { display: inline-flex; align-items: center; gap: 6px; font-size: 14.5px; font-weight: 600; color: var(--text-muted-light); transition: color var(--tr); }
+    .soon-back:hover { color: var(--gold); text-decoration: underline; }
+
+    .soon-card { padding: 30px 28px; border-radius: 20px; background: linear-gradient(180deg, #1f1d19 0%, #151412 100%); border: 1px solid rgba(212, 161, 62, 0.38); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45); }
+    .soon-card__kicker { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--gold); margin-bottom: 8px; }
+    .soon-card__title { margin: 0 0 10px; font-size: 22px; font-weight: 800; line-height: 1.25; color: var(--text-light); }
+    .soon-card__text { margin: 0 0 20px; font-size: 14.5px; color: var(--text-muted-light); }
+    .soon-catalogs { display: grid; gap: 12px; margin-bottom: 22px; }
+    .soon-catalog-item { padding: 14px 16px; border-radius: 12px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-dark); }
+    .soon-catalog-item strong { display: block; font-size: 15px; color: var(--gold); margin-bottom: 3px; }
+    .soon-catalog-item span { display: block; font-size: 13.5px; color: #dcd6ca; line-height: 1.4; }
+    .soon-card__note { margin: 14px 0 0; font-size: 12.5px; color: var(--text-muted-light); text-align: center; }
+
+    /* Футер */
+    .footer { background: #0c0c0b; border-top: 1px solid var(--border-dark); padding: 54px 0 28px; }
+    .footer__grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 32px; padding-bottom: 36px; border-bottom: 1px solid var(--border-dark); }
+    .footer__brand p { margin: 14px 0 0; font-size: 14px; color: var(--text-muted-light); max-width: 300px; }
+    .footer__col h4 { margin: 0 0 14px; font-size: 15px; font-weight: 700; }
+    .footer__col a { display: block; font-size: 14px; color: var(--text-muted-light); margin-bottom: 8px; }
+    .footer__col a:hover { color: var(--gold); }
+    .footer__phone { font-size: 16px !important; font-weight: 700; color: var(--text-light) !important; }
+    .footer__note { display: block; margin-top: 8px; font-size: 12.5px; color: var(--text-muted-light); }
+    .footer__bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-top: 22px; font-size: 13px; color: var(--text-muted-light); }
+
+    /* Модалки, плавающий виджет и Cookie */
+    .modal { position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; padding: 18px; opacity: 0; visibility: hidden; transition: all var(--tr); }
+    .modal.is-open { opacity: 1; visibility: visible; }
+    .modal__backdrop { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(6px); }
+    .modal__dialog { position: relative; width: 100%; max-width: 480px; max-height: 92vh; overflow-y: auto; background: var(--bg-charcoal); border: 1px solid rgba(212, 161, 62, 0.35); border-radius: 20px; padding: 32px 28px; color: var(--text-light); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5); }
+    .modal__dialog--sm { max-width: 420px; }
+    .modal__close { position: absolute; top: 14px; right: 16px; z-index: 25; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; padding: 0; border-radius: 50%; border: 1px solid rgba(212, 161, 62, 0.45); background: rgba(24, 23, 20, 0.9); color: var(--text-light); font-size: 24px; line-height: 1; cursor: pointer; backdrop-filter: blur(8px); }
+    .modal__close:hover { background: var(--gold); color: #121211; }
+    .section__kicker { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+    .modal__title { margin: 0 0 8px; padding-right: 36px; font-size: 23px; font-weight: 800; }
+    .modal__desc { margin: 0 0 20px; font-size: 14.5px; color: var(--text-muted-light); }
+    .modal__divider { display: flex; align-items: center; text-align: center; margin: 18px 0 14px; color: var(--text-muted-light); font-size: 12.5px; }
+    .modal__divider::before, .modal__divider::after { content: ""; flex: 1; border-bottom: 1px solid var(--border-dark); }
+    .modal__divider span { padding: 0 10px; }
+    .call-list { display: grid; gap: 10px; }
+    .call-item { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px 12px; padding: 14px 16px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-dark); }
+    .call-item:hover { border-color: var(--gold); }
+    .call-item span { font-size: 13px; color: var(--text-muted-light); line-height: 1.3; }
+    .call-item strong { font-size: 15.5px; color: var(--gold); white-space: nowrap; flex-shrink: 0; }
+
+    .contact-fab { position: fixed; right: 20px; bottom: calc(20px + env(safe-area-inset-bottom)); z-index: 140; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+    .contact-fab__menu { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; opacity: 0; visibility: hidden; transform: translateY(10px) scale(0.95); transition: all var(--tr); pointer-events: none; }
+    .contact-fab.is-open .contact-fab__menu { opacity: 1; visibility: visible; transform: translateY(0) scale(1); pointer-events: auto; }
+    .contact-fab__item { display: inline-flex; align-items: center; gap: 10px; padding: 11px 16px; border-radius: 999px; background: rgba(24, 23, 20, 0.96); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(212, 161, 62, 0.45); color: var(--text-light); font-size: 14px; font-weight: 700; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45); cursor: pointer; white-space: nowrap; transition: transform var(--tr), border-color var(--tr), background var(--tr); }
+    .contact-fab__item:hover { background: #26241f; border-color: var(--gold); transform: translateX(-2px); }
+    .contact-fab__item svg { color: var(--gold); flex-shrink: 0; }
+    .contact-fab__btn { position: relative; width: 58px; height: 58px; border-radius: 50%; border: none; background: var(--gold); color: #121211; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 12px 30px rgba(212, 161, 62, 0.42); transition: background var(--tr), color var(--tr), transform var(--tr); }
+    .contact-fab__btn:hover { background: var(--gold-hover); transform: scale(1.05); }
+    .contact-fab__btn::before { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--gold); animation: fabPulse 2.3s cubic-bezier(0.22, 1, 0.36, 1) infinite; pointer-events: none; }
+    .contact-fab.is-open .contact-fab__btn { background: var(--bg-charcoal); color: var(--gold); border: 1px solid rgba(212, 161, 62, 0.55); }
+    .contact-fab.is-open .contact-fab__btn::before { display: none; }
+    .contact-fab__btn .fab-icon { position: absolute; transition: opacity 0.25s ease, transform 0.25s ease; }
+    .contact-fab__btn .fab-icon--phone { animation: fabSwapPhone 4.4s infinite; }
+    .contact-fab__btn .fab-icon--msg { animation: fabSwapMsg 4.4s infinite; }
+    .contact-fab__btn .fab-icon--close { font-size: 28px; line-height: 1; opacity: 0; transform: scale(0.6); }
+    .contact-fab.is-open .contact-fab__btn .fab-icon--phone,
+    .contact-fab.is-open .contact-fab__btn .fab-icon--msg { animation: none; opacity: 0; transform: scale(0.6); }
+    .contact-fab.is-open .contact-fab__btn .fab-icon--close { opacity: 1; transform: scale(1); }
+    @keyframes fabSwapPhone { 0%, 42% { opacity: 1; transform: scale(1); } 48%, 94% { opacity: 0; transform: scale(0.65); } 100% { opacity: 1; transform: scale(1); } }
+    @keyframes fabSwapMsg { 0%, 44% { opacity: 0; transform: scale(0.65); } 50%, 92% { opacity: 1; transform: scale(1); } 98%, 100% { opacity: 0; transform: scale(0.65); } }
+    @keyframes fabPulse { 0% { transform: scale(1); opacity: 0.72; } 75%, 100% { transform: scale(1.48); opacity: 0; } }
+
+    .cookie-bar { position: fixed; left: 20px; bottom: 20px; z-index: 135; width: calc(100% - 40px); max-width: 430px; padding: 16px 18px; border-radius: 14px; background: rgba(24, 23, 20, 0.96); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(212, 161, 62, 0.42); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55); display: flex; flex-direction: column; gap: 12px; color: var(--text-light); }
+    .cookie-bar__text { margin: 0; font-size: 12.5px; line-height: 1.45; color: #d6d0c4; }
+    .cookie-bar__text a { color: var(--gold); text-decoration: underline; }
+    .cookie-bar__actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .cookie-bar__btn { padding: 9px 18px; font-size: 13px; border-radius: 7px; }
+
+    /* Адаптив: планшеты и телефоны */
+    @media (max-width: 1180px) {
+      .nav { display: none; }
+      .burger { display: flex; }
+      .soon-section { padding: 48px 0 60px; }
+      .soon-grid { gap: 28px; }
+    }
+    @media (max-width: 900px) {
+      .soon-grid { grid-template-columns: 1fr; gap: 28px; }
+      .footer__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .header__inner { height: 64px; gap: 10px; }
+      .logo svg { width: 132px; height: auto; }
+      .header__phones, .header .btn--gold, .header .btn--tg-icon { display: none; }
+      .soon-section { padding: 30px 0 46px; }
+      .soon-title { font-size: clamp(26px, 7.2vw, 34px); }
+      .soon-desc { font-size: 15px; margin-bottom: 20px; }
+      .soon-card { padding: 24px 18px; border-radius: 16px; }
+      .footer__grid { grid-template-columns: 1fr; gap: 24px; }
+      .footer { padding: 42px 0 32px; }
+      .input { font-size: 16px; }
+      .modal { padding: calc(14px + env(safe-area-inset-top)) 12px calc(14px + env(safe-area-inset-bottom)); }
+      .modal__dialog { max-height: 84vh; max-height: calc(100dvh - 28px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); padding: 22px 16px; border-radius: 16px; }
+      .modal__title { font-size: 20px; }
+      .contact-fab { right: 14px; bottom: calc(16px + env(safe-area-inset-bottom)); }
+      .contact-fab__btn { width: 54px; height: 54px; }
+      .cookie-bar { left: 12px; right: 12px; width: auto; max-width: none; bottom: calc(84px + env(safe-area-inset-bottom)); padding: 14px; }
+      .cookie-bar__actions { flex-direction: row-reverse; }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .soon-actions { flex-direction: column; }
+      .soon-actions .btn { width: 100%; }
+      .call-item { padding: 13px 14px; gap: 4px 10px; }
+      .call-item span { font-size: 12.5px; }
+      .call-item strong { font-size: 14.5px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ШАПКА -->
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo" aria-label="KeyLine">
+        <svg width="154" height="44" viewBox="0 0 180 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M22 44V6L48 16V44" stroke="#F5F2EB" stroke-width="2.2" stroke-linecap="square"/>
+          <path d="M16 44H56" stroke="#F5F2EB" stroke-width="2.2"/>
+          <path d="M29 21L38 24V37H29V21Z" fill="#F5F2EB" fill-opacity="0.18"/>
+          <circle cx="10" cy="28" r="6" stroke="#D4A13E" stroke-width="2.3"/>
+          <path d="M16 28H38" stroke="#D4A13E" stroke-width="2.3" stroke-linecap="square"/>
+          <path d="M31 28V35" stroke="#D4A13E" stroke-width="2.3"/>
+          <path d="M36 28V35" stroke="#D4A13E" stroke-width="2.3"/>
+          <text x="66" y="29" fill="#F5F2EB" font-family="Manrope, Segoe UI, sans-serif" font-size="22" font-weight="700">KeyLine</text>
+          <text x="67" y="42" fill="#B7B0A3" font-family="Manrope, Segoe UI, sans-serif" font-size="8.2" font-weight="500" letter-spacing="0.9">РЕМОНТ ПОД КЛЮЧ</text>
+        </svg>
+      </a>
+
+      <nav class="nav" aria-label="Навигация">
+        <a href="index.html#tariffs" class="nav__link">Тарифы</a>
+        <a href="portfolio.html" class="nav__link is-active">Портфолио</a>
+        <a href="design.html" class="nav__link">Дизайн-проекты</a>
+        <a href="furniture.html" class="nav__link">Мебель</a>
+        <a href="houses.html" class="nav__link">Строительство домов</a>
+        <a href="index.html#calculator" class="nav__link">Калькулятор</a>
+        <a href="blog.html" class="nav__link">Блог и FAQ</a>
+      </nav>
+
+      <div class="header__actions">
+        <div class="header__phones">
+          <a href="tel:+998507816719" class="header__phone">+998 50 781 67 19</a>
+          <a href="tel:+998908154313" class="header__phone header__phone--sub">+998 90 815 43 13</a>
+        </div>
+        <a href="https://t.me/KamillaKeyLine" target="_blank" rel="noopener noreferrer" class="btn btn--tg-icon js-tg-link" data-tg-text="Здравствуйте! Перешёл(ла) со страницы Портфолио KeyLine. Отправьте, пожалуйста, актуальный каталог выполненных работ." aria-label="Telegram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21.94 3.47a1.16 1.16 0 0 0-1.2-.18L2.68 10.67a1.13 1.13 0 0 0 .06 2.13l4.64 1.54 1.77 5.58a1 1 0 0 0 1.66.41l2.63-2.55 4.82 3.55a1.15 1.15 0 0 0 1.81-.68l2.89-15.9a1.17 1.17 0 0 0-.02-1.28ZM9.65 14.3l-.35 3.63-1.15-3.65 9.83-6.43-8.33 6.45Z"/></svg>
+        </a>
+        <button type="button" class="btn btn--gold btn--sm js-open-modal" data-modal="callbackModal" data-source="Портфолио (Шапка) — Заказать замер">Заказать замер</button>
+        <button type="button" class="burger" id="burgerBtn" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- МОБИЛЬНОЕ МЕНЮ -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu__inner">
+      <div class="mobile-menu__head">
+        <span class="mobile-menu__title">Меню KeyLine</span>
+        <button type="button" class="modal__close" id="closeMobileMenu" aria-label="Закрыть меню">&times;</button>
+      </div>
+      <nav class="mobile-menu__nav">
+        <a href="index.html#tariffs" class="mobile-menu__link">Тарифы на ремонт (от $120/м²)</a>
+        <a href="portfolio.html" class="mobile-menu__link is-active">Портфолио объектов</a>
+        <a href="design.html" class="mobile-menu__link">Дизайн-проекты и 3D</a>
+        <a href="furniture.html" class="mobile-menu__link">Мебель под заказ</a>
+        <a href="houses.html" class="mobile-menu__link">Строительство частных домов</a>
+        <a href="index.html#calculator" class="mobile-menu__link">Калькулятор сметы</a>
+        <a href="blog.html" class="mobile-menu__link">Вопросы и статьи</a>
+      </nav>
+      <div class="mobile-menu__contacts">
+        <p class="mobile-menu__label">Отдел продаж KeyLine</p>
+        <a href="tel:+998507816719" class="mobile-menu__phone">+998 50 781 67 19</a>
+        <a href="tel:+998908154313" class="mobile-menu__phone">+998 90 815 43 13</a>
+        <div class="mobile-menu__cta">
+          <a href="https://t.me/KamillaKeyLine" target="_blank" rel="noopener noreferrer" class="btn btn--outline-gold btn--block js-tg-link" data-tg-text="Здравствуйте! Хочу получить полное портфолио и рассчитать стоимость ремонта в Ташкенте.">Написать в Telegram</a>
+          <button type="button" class="btn btn--gold btn--block js-open-modal" data-modal="callbackModal" data-source="Портфолио (Мобильное меню) — Замер">Записаться на замер</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ОСНОВНОЙ БЛОК COMING SOON -->
+  <main>
+    <section class="soon-section">
+      <div class="container soon-grid">
+        <div>
+          <div class="eyebrow"><span class="eyebrow__dot"></span>Coming Soon • Обновление раздела</div>
+          <h1 class="soon-title">Полный каталог объектов <br><span class="text-serif-italic">скоро появится здесь</span></h1>
+          <p class="soon-desc">Сейчас мы обновляем инфраструктуру сайта и готовим расширенную галерею с подробными фотоотчётами и сметами по всем сданным квартирам в Ташкенте. Раздел скоро заработает, а пока мы с радостью отправим полное портфолио вам напрямую в Telegram.</p>
+
+          <div class="soon-actions">
+            <a href="https://t.me/KamillaKeyLine" target="_blank" rel="noopener noreferrer" class="btn btn--gold btn--lg js-tg-link" data-tg-text="Здравствуйте! Видел(а), что раздел Портфолио на сайте сейчас обновляется. Отправьте, пожалуйста, актуальный каталог выполненных работ KeyLine в Telegram.">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21.94 3.47a1.16 1.16 0 0 0-1.2-.18L2.68 10.67a1.13 1.13 0 0 0 .06 2.13l4.64 1.54 1.77 5.58a1 1 0 0 0 1.66.41l2.63-2.55 4.82 3.55a1.15 1.15 0 0 0 1.81-.68l2.89-15.9a1.17 1.17 0 0 0-.02-1.28ZM9.65 14.3l-.35 3.63-1.15-3.65 9.83-6.43-8.33 6.45Z"/></svg>
+              Получить портфолио в Telegram
+            </a>
+            <button type="button" class="btn btn--outline-light btn--lg js-open-modal" data-modal="callbackModal" data-source="Страница Портфолио (Coming Soon) — Заявка на каталог/замер">Заказать смету и замер</button>
+          </div>
+
+          <a href="index.html#portfolio" class="soon-back">← Посмотреть избранные проекты на главной странице</a>
+        </div>
+
+        <div class="soon-card reveal-item">
+          <span class="soon-card__kicker">Доступно прямо сейчас в Telegram</span>
+          <h2 class="soon-card__title">Пришлём закрытый каталог с реальными фото и бюджетами</h2>
+          <p class="soon-card__text">Пока страница наполняется, наш менеджер за пару минут перешлёт вам подборку готовых презентаций под ваш запрос:</p>
+
+          <div class="soon-catalogs">
+            <div class="soon-catalog-item">
+              <strong>Каталог COMFORT ($193 — $257 / м²)</strong>
+              <span>Сданные квартиры в ЖК Olmos, Xon Saroy, Mavera Town, Zenit, NRG Park, ул. Нукус — фото до/после и точные сроки.</span>
+            </div>
+            <div class="soon-catalog-item">
+              <strong>Каталог DESIGN ($283 — $611 / м²)</strong>
+              <span>Проекты в ЖК Tashkent City, Nest One, Boulevard, NRG Oybek, Parkent Plaza, Mirabad Avenue, Эволюция.</span>
+            </div>
+          </div>
+
+          <a href="https://t.me/KamillaKeyLine" target="_blank" rel="noopener noreferrer" class="btn btn--outline-gold btn--block js-tg-link" data-tg-text="Здравствуйте! Пришлите, пожалуйста, PDF-каталоги объектов KeyLine (Comfort и Design) с фото и ценами.">Запросить каталоги в Telegram →</a>
+          <p class="soon-card__note">Также можем организовать живой показ текущих объектов в Ташкенте.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ФУТЕР -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="logo" aria-label="KeyLine">
+          <svg width="144" height="40" viewBox="0 0 180 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M22 44V6L48 16V44" stroke="#F5F2EB" stroke-width="2.2" stroke-linecap="square"/>
+            <path d="M16 44H56" stroke="#F5F2EB" stroke-width="2.2"/>
+            <circle cx="10" cy="28" r="6" stroke="#D4A13E" stroke-width="2.3"/>
+            <path d="M16 28H38" stroke="#D4A13E" stroke-width="2.3" stroke-linecap="square"/>
+            <path d="M31 28V35" stroke="#D4A13E" stroke-width="2.3"/>
+            <path d="M36 28V35" stroke="#D4A13E" stroke-width="2.3"/>
+            <text x="66" y="29" fill="#F5F2EB" font-family="Manrope, Segoe UI, sans-serif" font-size="22" font-weight="700">KeyLine</text>
+            <text x="67" y="42" fill="#B7B0A3" font-family="Manrope, Segoe UI, sans-serif" font-size="8.2" font-weight="500" letter-spacing="0.9">РЕМОНТ ПОД КЛЮЧ</text>
+          </svg>
+        </a>
+        <p>Ремонт квартир под ключ в новостройках и вторичном жилье Ташкента, дизайн-проекты и корпусная мебель под заказ.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Навигация</h4>
+        <a href="index.html#tariffs">Тарифы и цены</a>
+        <a href="portfolio.html">Полное портфолио</a>
+        <a href="index.html#calculator">Калькулятор стоимости</a>
+        <a href="index.html#engineering">Почему KeyLine</a>
+        <a href="blog.html">База знаний и статьи</a>
+        <a href="blog.html#faq">Вопросы и ответы (FAQ)</a>
+      </div>
+      <div class="footer__col">
+        <h4>Услуги и направления</h4>
+        <a href="index.html#tariffs">Ремонт квартир (от $120/м²)</a>
+        <a href="design.html">Дизайн-проекты и 3D</a>
+        <a href="furniture.html">Корпусная мебель под заказ</a>
+        <a href="houses.html">Строительство частных домов</a>
+      </div>
+      <div class="footer__col">
+        <h4>Контакты в Ташкенте</h4>
+        <a href="tel:+998507816719" class="footer__phone">+998 50 781 67 19</a>
+        <a href="tel:+998908154313" class="footer__phone">+998 90 815 43 13</a>
+        <a href="https://t.me/KamillaKeyLine" target="_blank" rel="noopener noreferrer" class="link-gold js-tg-link" data-tg-text="Здравствуйте! Пишу с сайта KeyLine по поводу ремонта квартиры.">Telegram: @KamillaKeyLine</a>
+        <span class="footer__note">Консультации и запись на замер</span>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <span>© <span id="currentYear"></span> KeyLine. Все права защищены.</span>
+      <a href="privacy.html" class="link-gold">Политика конфиденциальности и Cookie</a>
+      <span>Ташкент, Республика Узбекистан</span>
+    </div>
+  </footer>
+
+  <!-- ПЛАВАЮЩИЙ ВИДЖЕТ СВЯЗИ -->
+  <div class="contact-fab" id="contactFab">
+    <div class="contact-fab__menu" aria-hidden="true">
+      <a href="https://t.me/KamillaKeyLine" target="_blank" rel="noopener noreferrer" class="contact-fab__item js-tg-link" data-tg-text="Здравствуйте! Хочу получить портфолио и проконсультироваться по ремонту квартиры в Ташкенте.">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21.94 3.47a1.16 1.16 0 0 0-1.2-.18L2.68 10.67a1.13 1.13 0 0 0 .06 2.13l4.64 1.54 1.77 5.58a1 1 0 0 0 1.66.41l2.63-2.55 4.82 3.55a1.15 1.15 0 0 0 1.81-.68l2.89-15.9a1.17 1.17 0 0 0-.02-1.28ZM9.65 14.3l-.35 3.63-1.15-3.65 9.83-6.43-8.33 6.45Z"/></svg>
+        <span>Написать в Telegram</span>
+      </a>
+      <button type="button" class="contact-fab__item js-open-modal" data-modal="callModal" data-source="Плавающий виджет (Портфолио) — Позвонить">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span>Позвонить нам</span>
+      </button>
+    </div>
+    <button type="button" class="contact-fab__btn" id="contactFabBtn" aria-label="Связаться с нами" aria-expanded="false">
+      <svg class="fab-icon fab-icon--phone" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <svg class="fab-icon fab-icon--msg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      <span class="fab-icon fab-icon--close" aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <!-- УВЕДОМЛЕНИЕ О COOKIE -->
+  <div class="cookie-bar" id="cookieBanner" role="dialog" aria-label="Уведомление о файлах cookie" hidden>
+    <p class="cookie-bar__text">Мы используем файлы cookie и техническое хранилище браузера для корректной работы сайта, калькулятора и аналитики рекламы. Подробнее — в <a href="privacy.html">Политике конфиденциальности и Cookie</a>.</p>
+    <div class="cookie-bar__actions">
+      <a href="privacy.html" class="link-gold" style="font-size: 12.5px;">Подробнее</a>
+      <button type="button" class="btn btn--gold cookie-bar__btn" id="acceptCookieBtn">Понятно, принять</button>
+    </div>
+  </div>
+
+  <!-- МОДАЛКА 1: ЗАКАЗ ЗАМЕРА -->
+  <div class="modal" id="callbackModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal__backdrop js-close-modal"></div>
+    <div class="modal__dialog">
+      <button type="button" class="modal__close js-close-modal" aria-label="Закрыть">&times;</button>
+      <span class="section__kicker">Бесплатный выезд специалиста</span>
+      <h3 class="modal__title">Заказать замер и каталог работ</h3>
+      <p class="modal__desc">Оставьте номер телефона — наш менеджер перезвонит вам, отправит примеры смет и подберёт время замера.</p>
+      <form class="js-lead-form" id="modalLeadForm" data-form-source="Портфолио — Модальное окно">
+        <div class="form-row"><input type="text" name="name" class="input input--dark" placeholder="Ваше имя" required></div>
+        <div class="form-row"><input type="tel" inputmode="tel" autocomplete="tel" name="phone" class="input input--dark js-phone-input" value="+998 " placeholder="+998 (__) ___-__-__" maxlength="22" required></div>
+        <div class="form-row"><input type="text" name="comment" class="input input--dark" placeholder="ЖК / площадь или вопрос (необязательно)"></div>
+        <button type="submit" class="btn btn--gold btn--block">Отправить заявку</button>
+        <p class="form-policy">Отправляя заявку, вы соглашаетесь с <a href="privacy.html">политикой конфиденциальности</a>.</p>
+        <div class="form-status" aria-live="polite"></div>
+      </form>
+      <div class="modal__divider"><span>или сразу напишите в Telegram</span></div>
+      <a href="https://t.me/KamillaKeyLine" target="_blank" rel="noopener noreferrer" class="btn btn--outline-gold btn--block js-tg-link" data-tg-text="Здравствуйте! Хочу получить каталог работ и записаться на бесплатный замер в Ташкенте.">Написать @KamillaKeyLine</a>
+    </div>
+  </div>
+
+  <!-- МОДАЛКА 2: ПРЯМОЙ ЗВОНОК -->
+  <div class="modal" id="callModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal__backdrop js-close-modal"></div>
+    <div class="modal__dialog modal__dialog--sm">
+      <button type="button" class="modal__close js-close-modal" aria-label="Закрыть">&times;</button>
+      <span class="section__kicker">Прямая связь с отделом продаж</span>
+      <h3 class="modal__title">Позвонить в KeyLine</h3>
+      <p class="modal__desc">Наш менеджер ответит на вопросы по тарифам, срокам и запишет на бесплатный замер.</p>
+      <div class="call-list">
+        <a href="tel:+998507816719" class="call-item"><span>Основной номер</span><strong>+998 50 781 67 19</strong></a>
+        <a href="tel:+998908154313" class="call-item"><span>Доп. номер</span><strong>+998 90 815 43 13</strong></a>
+        <a href="https://t.me/KamillaKeyLine" target="_blank" rel="noopener noreferrer" class="call-item js-tg-link" data-tg-text="Здравствуйте! Хочу обсудить ремонт квартиры под ключ в Ташкенте."><span>Telegram</span><strong>@KamillaKeyLine →</strong></a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* =========================================================================
+       НАСТРОЙКА TELEGRAM-БОТА ДЛЯ ЗАЯВОК С САЙТА
+       ========================================================================= */
+    const TELEGRAM_CONFIG = {
+      // >>> ВСТАВЬТЕ СЮДА API-КЛЮЧ (ТОКЕН) ВАШЕГО БОТА ОТ @BotFather <<<
+      botToken: '8699414040:AAFCpu3RAaNa3gyHSOIl9feg_MndkSe0j9g',
+
+      // >>> ВСТАВЬТЕ СЮДА TELEGRAM ID ЛЮДЕЙ, КТО ПОЛУЧАЕТ ЗАЯВКИ (ЧЕРЕЗ ЗАПЯТУЮ) <<<
+      recipientIds: [
+        '8944766361',
+        '8869199771',
+      ],
+
+      customEndpoint: '',
+      managerUsername: 'KamillaKeyLine'
+    };
+
+    const buildTgUrl = (msg) => `https://t.me/${TELEGRAM_CONFIG.managerUsername}?text=${encodeURIComponent(msg)}`;
+    const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    function captureUtm() {
+      const p = new URLSearchParams(window.location.search);
+      const u = {};
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach((k) => { if (p.get(k)) u[k] = p.get(k); });
+      if (Object.keys(u).length) { try { sessionStorage.setItem('keyline_utm', JSON.stringify(u)); } catch (e) {} }
+    }
+
+    function getUtm() {
+      try {
+        const r = sessionStorage.getItem('keyline_utm');
+        return r ? Object.entries(JSON.parse(r)).map(([k, v]) => `${k}: ${v}`).join(' | ') : 'Прямой переход';
+      } catch (e) { return 'Не определено'; }
+    }
+
+    function formatUzPhone(rawValue) {
+      let digits = String(rawValue || '').replace(/\D/g, '');
+      if (digits.startsWith('998')) digits = digits.slice(3);
+      digits = digits.slice(0, 9);
+      let out = '+998 ';
+      if (digits.length > 0) out += '(' + digits.slice(0, 2);
+      if (digits.length >= 2) out += ') ';
+      if (digits.length > 2) out += digits.slice(2, 5);
+      if (digits.length >= 5) out += '-';
+      if (digits.length > 5) out += digits.slice(5, 7);
+      if (digits.length >= 7) out += '-';
+      if (digits.length > 7) out += digits.slice(7, 9);
+      return out;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('currentYear').textContent = String(new Date().getFullYear());
+      captureUtm();
+
+      document.querySelectorAll('.js-tg-link').forEach((a) => {
+        a.href = buildTgUrl(a.dataset.tgText || 'Здравствуйте! Хочу получить портфолио и проконсультироваться по ремонту квартиры в Ташкенте.');
+      });
+
+      // Мобильное меню
+      const burger = document.getElementById('burgerBtn');
+      const menu = document.getElementById('mobileMenu');
+      const toggleMenu = (open) => {
+        menu?.classList.toggle('is-open', open);
+        menu?.setAttribute('aria-hidden', String(!open));
+        burger?.setAttribute('aria-expanded', String(open));
+        document.body.classList.toggle('modal-open', open);
+      };
+      burger?.addEventListener('click', () => toggleMenu(true));
+      document.getElementById('closeMobileMenu')?.addEventListener('click', () => toggleMenu(false));
+      menu?.querySelectorAll('a, button.js-open-modal').forEach((el) => el.addEventListener('click', () => toggleMenu(false)));
+
+      // Модалки
+      const openModal = (id, source) => {
+        const m = document.getElementById(id);
+        if (!m) return;
+        const f = document.getElementById('modalLeadForm');
+        if (source && id === 'callbackModal' && f) f.dataset.formSource = source;
+        m.classList.add('is-open');
+        m.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+        m.querySelector('.modal__dialog')?.scrollTo(0, 0);
+      };
+      const closeModals = () => {
+        document.querySelectorAll('.modal.is-open').forEach((m) => {
+          m.classList.remove('is-open');
+          m.setAttribute('aria-hidden', 'true');
+        });
+        document.body.classList.remove('modal-open');
+      };
+
+      document.querySelectorAll('.js-open-modal').forEach((b) => b.addEventListener('click', () => openModal(b.dataset.modal, b.dataset.source)));
+      document.querySelectorAll('.js-close-modal').forEach((b) => b.addEventListener('click', closeModals));
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeModals(); toggleMenu(false); } });
+
+      // Жёсткая маска телефона (+998 не стирается, только цифры)
+      document.querySelectorAll('.js-phone-input').forEach((input) => {
+        input.value = formatUzPhone(input.value);
+        const keepCursor = () => setTimeout(() => {
+          if ((input.selectionStart ?? 0) < 5) input.setSelectionRange(input.value.length, input.value.length);
+        }, 0);
+        input.addEventListener('focus', () => { if (!input.value.startsWith('+998 ')) input.value = formatUzPhone(input.value); keepCursor(); });
+        input.addEventListener('click', keepCursor);
+        input.addEventListener('keydown', (e) => {
+          const start = input.selectionStart ?? input.value.length;
+          const end = input.selectionEnd ?? input.value.length;
+          if (e.key === 'Backspace') {
+            if (start === end && start <= 5) { e.preventDefault(); return; }
+            if (start !== end && start < 5) { e.preventDefault(); input.value = formatUzPhone(input.value.slice(end)); return; }
+            if (start === end && start > 5 && /\D/.test(input.value[start - 1])) {
+              e.preventDefault();
+              input.value = formatUzPhone(input.value.slice(0, start).replace(/\d\D*$/, '') + input.value.slice(end));
+              return;
+            }
+          }
+          if (e.key === 'Delete' && start < 5) { e.preventDefault(); return; }
+          if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey && !/\d/.test(e.key)) e.preventDefault();
+        });
+        input.addEventListener('input', () => { input.value = formatUzPhone(input.value); });
+      });
+
+      // Отправка формы в Telegram-бот
+      document.querySelectorAll('.js-lead-form').forEach((form) => {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const st = form.querySelector('.form-status');
+          const btn = form.querySelector('button[type="submit"]');
+          const name = (form.querySelector('input[name="name"]')?.value || '').trim();
+          const phone = (form.querySelector('input[name="phone"]')?.value || '').trim();
+          const comment = (form.querySelector('input[name="comment"]')?.value || '').trim();
+
+          const digits = phone.replace(/\D/g, '');
+          const localDigits = digits.startsWith('998') ? digits.slice(3) : digits;
+          if (localDigits.length < 9) {
+            st.textContent = 'Введите все 9 цифр номера после +998 (например: +998 (90) 123-45-67).';
+            st.className = 'form-status is-error';
+            return;
+          }
+
+          const msg = `🏠 <b>Заявка с сайта KeyLine</b>\n\n👤 <b>Имя:</b> ${esc(name)}\n📞 <b>Телефон:</b> ${esc(phone)}\n${comment ? `📝 <b>Комментарий:</b> ${esc(comment)}\n` : ''}\n📍 <b>Страница:</b> ${esc(document.title)}\n🔗 <b>URL:</b> ${esc(window.location.href)}\n🔘 <b>Блок:</b> ${esc(form.dataset.formSource || 'Форма')}\n📊 <b>UTM:</b> ${esc(getUtm())}`;
+          const old = btn.textContent;
+          btn.disabled = true; btn.textContent = 'Отправка...'; st.textContent = '';
+
+          const validIds = (TELEGRAM_CONFIG.recipientIds || []).map((id) => String(id).trim()).filter((id) => id && !id.includes('ВСТАВЬТЕ') && id !== 'YOUR_CHAT_ID');
+          const hasToken = Boolean(TELEGRAM_CONFIG.botToken && !TELEGRAM_CONFIG.botToken.includes('ВСТАВЬТЕ') && TELEGRAM_CONFIG.botToken !== 'YOUR_BOT_TOKEN');
+
+          try {
+            if (TELEGRAM_CONFIG.customEndpoint) {
+              const r = await fetch(TELEGRAM_CONFIG.customEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: msg, recipientIds: validIds }) });
+              if (!r.ok) throw new Error('HTTP ' + r.status);
+            } else if (hasToken && validIds.length) {
+              const results = await Promise.allSettled(
+                validIds.map((chatId) => fetch(`https://api.telegram.org/bot${TELEGRAM_CONFIG.botToken}/sendMessage`, {
+                  method: 'POST', headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ chat_id: chatId, text: msg, parse_mode: 'HTML', disable_web_page_preview: true })
+                }).then((r) => { if (!r.ok) throw new Error('TG ' + r.status); }))
+              );
+              if (!results.some((r) => r.status === 'fulfilled')) throw new Error('TG failed');
+            } else {
+              console.info('[Demo Mode]:\n' + msg);
+            }
+            form.reset();
+            form.querySelectorAll('.js-phone-input').forEach((i) => { i.value = '+998 '; });
+            st.textContent = 'Спасибо! Заявка отправлена — мы вам перезвоним в ближайшее время.';
+            st.className = 'form-status is-success';
+          } catch (err) {
+            st.innerHTML = 'Не удалось отправить автоматически. Напишите в <a href="https://t.me/KamillaKeyLine" target="_blank" class="link-gold">Telegram</a> или позвоните +998 50 781 67 19.';
+            st.className = 'form-status is-error';
+          } finally {
+            btn.disabled = false; btn.textContent = old;
+          }
+        });
+      });
+
+      // Уведомление о Cookie (единое для всех страниц)
+      const cookieBanner = document.getElementById('cookieBanner');
+      const acceptCookieBtn = document.getElementById('acceptCookieBtn');
+      let cookieAccepted = false;
+      try { cookieAccepted = localStorage.getItem('keyline_cookie_accepted') === '1'; } catch (e) {}
+      if (cookieBanner && !cookieAccepted) {
+        setTimeout(() => { cookieBanner.hidden = false; }, 500);
+        acceptCookieBtn?.addEventListener('click', () => {
+          try { localStorage.setItem('keyline_cookie_accepted', '1'); } catch (e) {}
+          cookieBanner.hidden = true;
+          cookieBanner.style.display = 'none';
+        });
+      }
+
+      // Плавающий виджет связи
+      const contactFab = document.getElementById('contactFab');
+      const contactFabBtn = document.getElementById('contactFabBtn');
+      const contactFabMenu = contactFab?.querySelector('.contact-fab__menu');
+      const setFabOpen = (open) => {
+        if (!contactFab) return;
+        contactFab.classList.toggle('is-open', open);
+        contactFabBtn?.setAttribute('aria-expanded', String(open));
+        contactFabMenu?.setAttribute('aria-hidden', String(!open));
+      };
+      contactFabBtn?.addEventListener('click', (e) => { e.stopPropagation(); setFabOpen(!contactFab.classList.contains('is-open')); });
+      contactFabMenu?.querySelectorAll('a, button').forEach((el) => el.addEventListener('click', () => setFabOpen(false)));
+      document.addEventListener('click', (e) => { if (contactFab?.classList.contains('is-open') && !contactFab.contains(e.target)) setFabOpen(false); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setFabOpen(false); });
+
+      // Плавное появление карточки при скролле
+      if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('reveal-ready');
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+            setTimeout(() => entry.target.classList.remove('reveal-item', 'is-visible'), 800);
+          });
+        }, { threshold: 0.06 });
+        document.querySelectorAll('.reveal-item').forEach((el) => {
+          if (el.getBoundingClientRect().top < window.innerHeight * 0.92) el.classList.remove('reveal-item');
+          else obs.observe(el);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
