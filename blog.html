@@ -149,22 +149,24 @@
     .section__desc--dark { color: var(--text-muted-dark); }
 
     /* Hero Базы знаний */
-    .blog-hero { padding: 48px 0 46px; background: radial-gradient(circle at 80% 15%, rgba(212, 161, 62, 0.14), transparent 52%), var(--bg-dark); border-bottom: 1px solid var(--border-dark); }
-    .blog-hero__top { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 36px; align-items: end; }
+    /* Hero Базы знаний + карточка услуги приёмки */
+    .blog-hero { padding: 38px 0 42px; background: radial-gradient(circle at 80% 15%, rgba(212, 161, 62, 0.14), transparent 52%), var(--bg-dark); border-bottom: 1px solid var(--border-dark); }
+    .blog-hero__top { display: grid; grid-template-columns: 1.12fr 0.88fr; gap: 34px; align-items: center; }
     .blog-hero__top > * { min-width: 0; }
     .eyebrow { display: inline-flex; align-items: center; gap: 9px; padding: 6px 13px; border-radius: 999px; background: rgba(212, 161, 62, 0.12); border: 1px solid rgba(212, 161, 62, 0.38); font-size: 12.5px; font-weight: 600; color: var(--gold); margin-bottom: 14px; }
     .eyebrow__dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px var(--gold); }
-    .blog-hero__title { margin: 0 0 12px; font-size: clamp(28px, 3.6vw, 44px); line-height: 1.12; font-weight: 800; letter-spacing: -0.02em; }
-    .blog-hero__sub { margin: 0 0 20px; font-size: 15.5px; color: #d6d0c4; max-width: 640px; }
+    .blog-hero__title { margin: 0 0 12px; font-size: clamp(28px, 3.5vw, 42px); line-height: 1.12; font-weight: 800; letter-spacing: -0.02em; }
+    .blog-hero__sub { margin: 0 0 20px; font-size: 15.5px; color: #d6d0c4; max-width: 620px; }
     .blog-quick-nav { display: flex; flex-wrap: wrap; gap: 8px; }
     .quick-pill { padding: 8px 14px; border-radius: 999px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-dark); font-size: 13px; font-weight: 600; color: #e2dcd0; transition: all var(--tr); }
     .quick-pill:hover { border-color: var(--gold); color: var(--gold); background: rgba(212, 161, 62, 0.1); }
-    .search-box { padding: 22px; border-radius: 16px; background: var(--bg-charcoal); border: 1px solid rgba(212, 161, 62, 0.3); }
-    .search-box label { display: block; font-size: 13px; font-weight: 700; color: var(--gold); margin-bottom: 8px; }
-    .search-input-wrap { position: relative; }
-    .search-input-wrap svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted-light); pointer-events: none; }
-    .search-input-wrap input { padding-left: 42px; }
-    .search-box__hint { margin: 8px 0 0; font-size: 12px; color: var(--text-muted-light); }
+    .accept-card { padding: 24px 24px 22px; border-radius: 18px; background: linear-gradient(180deg, #211f1b 0%, #171614 100%); border: 1px solid rgba(212, 161, 62, 0.42); box-shadow: 0 22px 52px rgba(0, 0, 0, 0.48); }
+    .accept-card__kicker { display: inline-block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold); margin-bottom: 6px; }
+    .accept-card__title { margin: 0 0 6px; font-size: 20px; font-weight: 800; line-height: 1.25; color: var(--text-light); }
+    .accept-card__desc { margin: 0 0 16px; font-size: 13.5px; color: var(--text-muted-light); line-height: 1.45; }
+    .accept-card .input { padding: 12px 14px; font-size: 14.5px; }
+    .accept-card .form-row { margin-bottom: 10px; }
+    .accept-card__tg { margin-top: 10px; }
 
     /* Гайд приёмки новостройки */
     .guide-intro { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
@@ -341,7 +343,8 @@
       .checklist-box, .cta-form { padding: 22px 18px; }
       .defect-card__body { padding: 16px 16px 18px; }
       .footer { padding: 42px 0 32px; }
-      .input { font-size: 16px; }
+     .accept-card { padding: 20px 18px; }
+      .accept-card .input { font-size: 16px; }
       .modal { padding: calc(14px + env(safe-area-inset-top)) 12px calc(14px + env(safe-area-inset-bottom)); }
       .modal__dialog { max-height: 84vh; max-height: calc(100dvh - 28px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); padding: 22px 16px; border-radius: 16px; }
       .modal__dialog--reader { padding: 14px 16px 22px; }
@@ -453,13 +456,18 @@
           </div>
         </div>
 
-        <div class="search-box">
-          <label for="blogSearchInput">Поиск по статьям и вопросам</label>
-          <div class="search-input-wrap">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-            <input type="search" id="blogSearchInput" class="input input--dark" placeholder="Например: скрытые двери, White Box, $257, кухня...">
-          </div>
-          <p class="search-box__hint">Фильтрует одновременно каталог статей и блок вопросов Q&amp;A ниже.</p>
+       <div class="accept-card">
+          <span class="accept-card__kicker">Услуга KeyLine • Новостройки Ташкента</span>
+          <h2 class="accept-card__title">Поможем принять квартиру от застройщика</h2>
+          <p class="accept-card__desc">Выезд специалиста с лазерным уровнем и приборами: проверим стены, стяжку, окна, электрику и стояки до подписания акта, чтобы застройщик устранил брак за свой счёт.</p>
+          <form class="js-lead-form" data-form-source="Блог (Первый экран) — Помощь с приёмкой квартиры">
+            <div class="form-row"><input type="text" name="name" class="input input--dark" placeholder="Ваше имя" required></div>
+            <div class="form-row"><input type="tel" inputmode="tel" autocomplete="tel" name="phone" class="input input--dark js-phone-input" value="+998 " placeholder="+998 (__) ___-__-__" maxlength="22" required></div>
+            <button type="submit" class="btn btn--gold btn--block">Заказать помощь с приёмкой</button>
+            <p class="form-policy">Отправляя заявку, вы соглашаетесь с <a href="privacy.html">политикой конфиденциальности</a>.</p>
+            <div class="form-status" aria-live="polite"></div>
+          </form>
+          <a href="https://t.me/KamillaKeyLine" target="_blank" rel="noopener noreferrer" class="btn btn--outline-gold btn--block accept-card__tg js-tg-link" data-tg-text="Здравствуйте! Скоро принимаю квартиру от застройщика в Ташкенте. Нужна помощь специалиста KeyLine с приёмкой.">Написать в Telegram по приёмке</a>
         </div>
       </div>
     </section>
@@ -1335,25 +1343,12 @@
       const articlesGrid = document.getElementById('articlesGrid');
       const articlesEmpty = document.getElementById('articlesEmpty');
       const toggleArticlesBtn = document.getElementById('toggleArticlesBtn');
-      const searchInput = document.getElementById('blogSearchInput');
-      const faqItems = Array.from(document.querySelectorAll('#faqList .faq-item'));
-      const faqEmpty = document.getElementById('faqEmpty');
-
-      let activeCat = 'all';
-      let searchQuery = '';
+let activeCat = 'all';
       let visibleLimit = 6;
 
       const renderArticles = () => {
-        const q = searchQuery.trim().toLowerCase();
-        const filtered = ARTICLES.filter((a) => {
-          const matchCat = activeCat === 'all' || a.cat === activeCat;
-          if (!matchCat) return false;
-          if (!q) return true;
-          const plainContent = a.content.replace(/<[^>]+>/g, ' ').toLowerCase();
-          return a.title.toLowerCase().includes(q) || a.excerpt.toLowerCase().includes(q) || plainContent.includes(q);
-        });
-
-        const showAll = q.length > 0 || activeCat !== 'all';
+        const filtered = activeCat === 'all' ? ARTICLES : ARTICLES.filter((a) => a.cat === activeCat);
+        const showAll = activeCat !== 'all';
         const toShow = showAll ? filtered : filtered.slice(0, visibleLimit);
 
         articlesGrid.innerHTML = toShow.map((a) => `
@@ -1372,7 +1367,7 @@
           </article>
         `).join('');
 
-        articlesEmpty.hidden = filtered.length > 0;
+        if (articlesEmpty) articlesEmpty.hidden = filtered.length > 0;
         if (!showAll && filtered.length > visibleLimit) {
           const left = filtered.length - visibleLimit;
           toggleArticlesBtn.style.display = 'inline-flex';
@@ -1382,18 +1377,6 @@
         }
 
         observeLazyImages();
-      };
-
-      const filterFaq = () => {
-        const q = searchQuery.trim().toLowerCase();
-        let count = 0;
-        faqItems.forEach((item) => {
-          const text = item.textContent.toLowerCase();
-          const match = !q || text.includes(q);
-          item.classList.toggle('is-hidden-faq', !match);
-          if (match) count++;
-        });
-        if (faqEmpty) faqEmpty.hidden = count > 0;
       };
 
       renderArticles();
@@ -1410,12 +1393,6 @@
       toggleArticlesBtn?.addEventListener('click', () => {
         visibleLimit += 6;
         renderArticles();
-      });
-
-      searchInput?.addEventListener('input', () => {
-        searchQuery = searchInput.value;
-        renderArticles();
-        filterFaq();
       });
 
       document.addEventListener('click', (e) => {
