@@ -70,7 +70,20 @@
     .media-box img.is-broken { display: none; }
     .hero__grid > *, .calc-wrapper > *, .furniture-split > *, .faq-blog-grid > *, .cta-box > *, .project-modal__grid > * { min-width: 0; }
     .btn, button, a { touch-action: manipulation; }
-    
+    /* Премиальное плавное появление блоков при скролле */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal-ready .reveal-item {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+                    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+        will-change: opacity, transform;
+      }
+      .reveal-ready .reveal-item.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
     .media-box__hint { position: absolute; inset: 16px; z-index: 1; border: 1px dashed rgba(212, 161, 62, 0.35); border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; color: #b7b0a3; font-size: 13px; }
     .media-box__hint strong { color: #d4a13e; font-size: 14px; margin-bottom: 4px; }
 
@@ -341,7 +354,7 @@
     .modal__dialog { position: relative; width: 100%; max-width: 480px; max-height: 92vh; overflow-y: auto; background: #1c1b19; border: 1px solid rgba(212, 161, 62, 0.35); border-radius: 20px; padding: 32px 28px; color: #f5f2eb; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5); }
     .modal__dialog--sm { max-width: 420px; }
     .modal__dialog--lg { max-width: 880px; padding: 28px; }
-    .modal__close { position: absolute; top: 14px; right: 16px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border-dark); background: rgba(255, 255, 255, 0.08); color: #f5f2eb; font-size: 24px; line-height: 1; cursor: pointer; }
+    .modal__close { position: absolute; top: 14px; right: 16px; z-index: 25; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(212, 161, 62, 0.45); background: rgba(24, 23, 20, 0.9); color: #f5f2eb; font-size: 24px; line-height: 1; cursor: pointer; backdrop-filter: blur(8px); }
     .modal__close:hover { background: #d4a13e; color: #121211; }
     .modal__title { margin: 0 0 8px; font-size: 24px; font-weight: 800; }
     .modal__desc { margin: 0 0 20px; font-size: 14.5px; color: #b7b0a3; }
@@ -494,12 +507,14 @@
       .portfolio-final { padding: 20px 18px; gap: 16px; }
       .portfolio-more .btn, .portfolio-final__actions, .portfolio-final__actions .btn, .furniture-split__actions .btn, .faq-more .btn, .blog-more .btn, .cta-box .btn { width: 100%; }
       .input { font-size: 16px; }
-      .modal { padding: 12px; }
-      .modal__dialog { padding: 24px 18px; border-radius: 16px; }
-      .modal__dialog--lg { padding: 20px 16px; }
-      .modal__title { padding-right: 36px; font-size: 21px; }
-      .project-modal__grid { gap: 18px; }
-      .project-modal__media { max-height: 250px; }
+      .modal { padding: calc(14px + env(safe-area-inset-top)) 12px calc(14px + env(safe-area-inset-bottom)); }
+      .modal__dialog { max-height: 84vh; max-height: calc(100dvh - 28px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); padding: 22px 16px; border-radius: 16px; }
+      .modal__dialog--lg { padding: 14px 16px 20px; }
+      #projectModal .modal__close { position: sticky; top: 0; right: auto; display: flex; align-items: center; gap: 6px; width: fit-content; height: 34px; padding: 0 14px; border-radius: 999px; margin: 0 0 12px auto; font-size: 20px; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.48); }
+      #projectModal .modal__close::after { content: "Закрыть"; font-size: 13px; font-weight: 700; }
+      .modal__title { padding-right: 36px; font-size: 20px; }
+      .project-modal__grid { gap: 16px; }
+      .project-modal__media { aspect-ratio: 16 / 9; max-height: 210px; }
       .footer { padding: 42px 0 32px; }
       .contact-fab { right: 14px; bottom: calc(16px + env(safe-area-inset-bottom)); }
       .contact-fab__btn { width: 54px; height: 54px; }
@@ -1347,7 +1362,7 @@ const buildTgUrl = (msg) => `https://t.me/${TELEGRAM_CONFIG.managerUsername}?tex
       } catch (e) { return 'Не определено'; }
     }
 
-    function openModal(id, source) {
+   function openModal(id, source) {
       const m = document.getElementById(id);
       if (!m) return;
       if (source && id === 'callbackModal') {
@@ -1357,6 +1372,7 @@ const buildTgUrl = (msg) => `https://t.me/${TELEGRAM_CONFIG.managerUsername}?tex
       m.classList.add('is-open');
       m.setAttribute('aria-hidden', 'false');
       document.body.classList.add('modal-open');
+      m.querySelector('.modal__dialog')?.scrollTo(0, 0);
     }
 
     function closeModals() {
@@ -1484,6 +1500,7 @@ const buildTgUrl = (msg) => `https://t.me/${TELEGRAM_CONFIG.managerUsername}?tex
           grid.insertAdjacentHTML('beforeend', PROJECTS.slice(prev, visibleCount).map(createProjectCardHtml).join(''));
           observeLazyImages();
           syncPortfolioFooter();
+          if (typeof window.initScrollReveal === 'function') window.initScrollReveal(true);
         });
       }
 
@@ -1742,7 +1759,71 @@ const buildTgUrl = (msg) => `https://t.me/${TELEGRAM_CONFIG.managerUsername}?tex
         if (contactFab?.classList.contains('is-open') && !contactFab.contains(e.target)) setFabOpen(false);
       });
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setFabOpen(false); });
+      let revealObserver = null;
+      const REVEAL_SELECTOR = [
+        '.section__head',
+        '.tariff-card',
+        '.project-card',
+        '.portfolio-final',
+        '.calc-wrapper',
+        '.feature-card',
+        '.furniture-photo-grid',
+        '.furniture-split > div:last-child',
+        '.step-item',
+        '.faq-item',
+        '.blog-mini',
+        '.cta-box > div',
+        '.cta-form'
+      ].join(', ');
+
+      window.initScrollReveal = (animateImmediately = false) => {
+        if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        document.documentElement.classList.add('reveal-ready');
+
+        const revealEl = (el) => {
+          el.classList.add('is-visible');
+          revealObserver?.unobserve(el);
+          setTimeout(() => {
+            el.classList.remove('reveal-item', 'is-visible');
+            el.style.removeProperty('--reveal-delay');
+          }, 800);
+        };
+
+        if (!revealObserver) {
+          revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) revealEl(entry.target);
+            });
+          }, { rootMargin: '0px 0px -36px 0px', threshold: 0.06 });
+        }
+
+        const isDesktop = window.innerWidth > 768;
+        const nodes = document.querySelectorAll(REVEAL_SELECTOR);
+        nodes.forEach((el, idx) => {
+          if (el.dataset.revealBound) return;
+          el.dataset.revealBound = '1';
+
+          const rect = el.getBoundingClientRect();
+          if (!animateImmediately && rect.top < window.innerHeight * 0.92) return;
+
+          if (isDesktop) {
+            const parent = el.parentElement;
+            const siblingIndex = parent ? Array.from(parent.children).indexOf(el) : idx;
+            const delay = (Math.max(0, siblingIndex) % 4) * 70;
+            if (delay) el.style.setProperty('--reveal-delay', delay + 'ms');
+          }
+
+          el.classList.add('reveal-item');
+          if (animateImmediately) {
+            requestAnimationFrame(() => requestAnimationFrame(() => revealEl(el)));
+          } else {
+            revealObserver.observe(el);
+          }
+        });
+      };
+
       observeLazyImages();
+      window.initScrollReveal(false);
     });
   </script>
 </body>
